@@ -24,40 +24,27 @@
 % En la pantalla deben mostrarse los valores de x1, x2 (las raíces)
 % y los puntos críticos con los valores de la función.
 %----------------------------------------------------------------------
-% Nombre completo:
-%  Clave única:
+% Nombre completo: Héctor J. Beltrán S.
+%  Clave única: 160850
 %--------------------------------------------------------------------
 
 f= inline('sin(x)-cos(x)');
-% df = inline ('(sin(x + eps )-cos(x+ eps)) - (sin(x)-cos(x))) / eps');
-vdy= zeros(100,1);
-
-
 vx = linspace(0.0,2*pi)'; vy = zeros(100,1);
 
-%calculando zeros
+% Calculando raíces
+[ x1 , iter1 ] = Secante( f,0,1);
+[ x2 , iter2 ] = Secante( f,2,2*pi);
 
-[ x1 , iter1 ] = Secante( f,0,1)
-[ x2 , iter2 ] = Secante( f,2,2*pi)
-%x1 imprimir estas dos para prueba 
-%x2 
-
-%calculando puntos fijos
-% [y1,kiter1] = reglafalsa(f,0,pi)
-% [y2,kiter2] = reglafalsa(f,3,2*pi)
-% y1
-% y2
-% h = .1e-30;
-g = inline('cos(x) + sin(x)')
-[y1,kiter1] = reglafalsa(g,0,pi)
-[y2,kiter2] = reglafalsa(g,5,6)
-z1=f(y1)
-z2= f(y2)
-
+% Calculando puntos fijos
+g = inline('cos(x) + sin(x)');
+[xmax,kiter1] = biseccion(g,1,3);
+[xmin,kiter2] = biseccion(g,5,6);
 
 for i=1:100
     vy(i) = f(vx(i));
-%     vdy(i) = df(vx(i));
 end
 
-plot(vx,vy,vx,zeros(100,1), x1, 0, 'sr', x2, 0, 'sr',y1, z1, 'sr', y2, z2, 'sr')
+plot(vx,vy,vx,zeros(100,1), x1, 0, 'dr', x2, 0, 'dr',xmax, f(xmax), 'sg', xmin, f(xmin), 'sg')
+title("Gráfica de f(x) = sen(x) - cos(x)")
+xlabel("Eje X")
+ylabel("Eje Y")

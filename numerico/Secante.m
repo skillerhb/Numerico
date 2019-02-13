@@ -15,7 +15,5 @@ while (error >= tol && iter < maxiter)
     x = x2 - ((x2 - x1)/(fx2 - fx1))*fx2;
     error = abs(x2 - x1);
     iter = iter + 1;
-    
-
 end
 xs=x;
